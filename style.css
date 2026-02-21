@@ -1119,28 +1119,20 @@ section {
 }
 
 /* Mobile gallery: scroll grid */
-/* @media(max-width:768px) {
-    .gp-canvas {
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        display: flex;
-        flex-wrap: wrap;
-        padding: 10px 12px 30px;
-        gap: 10px;
-        align-content: flex-start;
-    }
-
-    .gp-photo {
-        position: relative !important;
-        transform: none !important;
-        width: calc(50% - 5px);
-        flex-shrink: 0;
-    }
-
+@media(max-width:768px) {
     .gp-photo-img {
         font-size: 1.8rem
     }
-} */
+    .gp-canvas img {
+    /* make the image completely fill whatever box it's in */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center -60px;
+    pointer-events: none;
+    user-select: none;
+}
+}
 
 /* ============================================================
    CONTACT
