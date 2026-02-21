@@ -7,13 +7,19 @@ gsap.registerPlugin(ScrollTrigger, Draggable);
 const OFFICERS = [
     { name: 'Alfino', role: 'Ketua Kelas', emoji: '<img src="asset/STRUKTUR/km.png" alt="Foto">' },
     { name: 'Bp Patah Yasin', role: 'Wali Kelas', emoji: '<img src="asset/STRUKTUR/wali_kelas.png" alt="Foto">' },
-    { name: 'Zein', role: 'Wakil KM', emoji: '<img src="asset/STRUKTUR/wakil_km.png" alt="Foto">' },
+    { name: 'Fitria', role: 'Wakil KM', emoji: '<img src="asset/STRUKTUR/wakil_km.png" alt="Foto">' },
     { name: 'Regita', role: 'Sekretaris I', emoji: '<img src="asset/STRUKTUR/sek1.png" alt="Foto">' },
     { name: 'Kiran', role: 'Sekretaris II', emoji: '<img src="asset/STRUKTUR/sek2.png" alt="Foto">' },
     { name: 'Nabila', role: 'Bendahara I', emoji: '<img src="asset/STRUKTUR/ben1.png" alt="Foto">' },
     { name: 'Zaskya', role: 'Bendahara II', emoji: '<img src="asset/STRUKTUR/ben2.png" alt="Foto">' },
-    { name: 'Faris', role: 'Seksi Olahraga', emoji: '<img src="asset/STRUKTUR/olah.png" alt="Foto">' },
-    { name: 'Fitria', role: 'Seksi Seni', emoji: '<img src="asset/STRUKTUR/seni.png" alt="Foto">' },
+    { name: 'Windi', role: 'Seksi Olahraga I', emoji: '<img src="asset/STRUKTUR/olahraga1.png" alt="Foto">' },
+    { name: 'Zein', role: 'Seksi Olahraga II', emoji: '<img src="asset/STRUKTUR/olahraga2.png" alt="Foto">' },
+    { name: 'Wulan', role: 'Seksi Kebersihan I', emoji: '<img src="asset/STRUKTUR/kebersihan1.png" alt="Foto">' },
+    { name: 'Sri', role: 'Seksi Kebersihan II', emoji: '<img src="asset/STRUKTUR/kebersihan2.png" alt="Foto">' },
+    { name: 'Evita', role: 'Seksi Kemanan I', emoji: '<img src="asset/STRUKTUR/kemanan1.png" alt="Foto">' },
+    { name: 'Renita', role: 'Seksi Kemanan II', emoji: '<img src="asset/STRUKTUR/kemanan2.png" alt="Foto">' },
+    { name: 'Meli', role: 'Seksi Humas I', emoji: '<img src="asset/STRUKTUR/humas1.png" alt="Foto">' },
+    { name: 'Amelia', role: 'Seksi Humas II', emoji: '<img src="asset/STRUKTUR/humas2.png" alt="Foto">' },
 ];
 
 /* Desktop scatter positions [top%, left%, rotation°]
@@ -21,17 +27,21 @@ const OFFICERS = [
    This keeps the center zone (roughly 20–75%) clear for the hero text.
 */
 const SCATTER = [
-    /* Left column */
     ['67%', '52%', 6],
     ['12%', '46.7%', 0],
     ['67%', '42%', -6],
     ['18%', '30%', 8],
-    /* Right column */
     ['18%', '65%', -7],
     ['36%', '12%', -8],
-    ['30%', '78%', 5],
+    ['36%', '78%', 5],
     ['65%', '15%', -6],
-    ['50%', '86%', 10],
+    ['65%', '86%', 10],
+    ['10%', '6%', 6],
+    ['50%', '66%', 5],
+    ['10%', '18%', -10],
+    ['10%', '76%', 10],
+    ['50%', '26%', -4],
+    ['10%', '86%', -5],
 ];
 
 /* ─── DATA: PIKET ──────────────────────────────────────
