@@ -1098,6 +1098,15 @@ section {
     aspect-ratio: 4/3;
     pointer-events: none;
 }
+.gp-canvas img {
+    /* make the image completely fill whatever box it's in */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center -60px;
+    pointer-events: none;
+    user-select: none;
+}
 
 .gp-photo-cap {
     text-align: center;

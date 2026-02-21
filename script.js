@@ -114,12 +114,12 @@ const LESSONS = {
 const GALLERY_DATA = {
     X: [
         { emoji: '<img src="asset/X/foto1.png" alt="Foto">', cap: 'Hari Pertama Sekolah', bg: ['#0077be', '#40E0D0'] },
-        { emoji: '<img src="asset/X/foto2.png" alt="Foto">', cap: 'MOS Seru!', bg: ['#005a8e', '#2bb8a9'] },
-        { emoji: '<img src="asset/X/foto3.png" alt="Foto">', cap: 'Study Tour Pantai', bg: ['#40E0D0', '#93E9BE'] },
-        { emoji: '<img src="asset/X/foto4.png" alt="Foto">', cap: 'Coding Session Pertama', bg: ['#2bb8a9', '#0077be'] },
-        { emoji: '<img src="asset/X/foto5.png" alt="Foto">', cap: 'Lomba Antar Kelas', bg: ['#93E9BE', '#005a8e'] },
-        { emoji: '<img src="asset/X/foto6.png" alt="Foto">', cap: 'Ultah Kelas', bg: ['#FF7B6B', '#FFB347'] },
-        { emoji: '<img src="asset/X/foto7.png" alt="Foto">', cap: 'Makan Bareng', bg: ['#FFB347', '#FF7B6B'] },
+        { emoji: '<img src="asset/X/foto2.png" alt="Foto">', cap: 'MPLS Seru', bg: ['#005a8e', '#2bb8a9'] },
+        { emoji: '<img src="asset/X/foto3.png" alt="Foto">', cap: 'Momen Seru', bg: ['#40E0D0', '#93E9BE'] },
+        { emoji: '<img src="asset/X/foto4.png" alt="Foto">', cap: 'Fotbar Sekelas', bg: ['#2bb8a9', '#0077be'] },
+        { emoji: '<img src="asset/X/foto5.png" alt="Foto">', cap: 'Fotbar cewe', bg: ['#93E9BE', '#005a8e'] },
+        { emoji: '<img src="asset/X/foto6.png" alt="Foto">', cap: 'yalil yalili', bg: ['#FF7B6B', '#FFB347'] },
+        { emoji: '<img src="asset/X/foto7.png" alt="Foto">', cap: 'yalil yalili', bg: ['#FFB347', '#FF7B6B'] },
     ],
     XI: [
         { emoji: '<img src="asset/XI/" alt="Foto">', cap: 'Praktik Industri', bg: ['#2bb8a9', '#005f54'] },
