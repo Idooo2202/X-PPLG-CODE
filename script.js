@@ -499,3 +499,274 @@ document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click
 document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeGallery(); closeContact(); }
 });
+
+/* ============================================================
+   WHIRLPOOL RANDOMIZER — JS SNIPPET
+   Tambahkan ke file script.js Anda (cukup paste di bagian bawah)
+   ============================================================ */
+
+/* ─── DATA: DAFTAR SISWA ──────────────────────────────────────
+   Ganti nama dummy di bawah dengan nama asli siswa X PPLG C.
+   Pastikan jumlahnya tetap 35 (atau sesuaikan konstanta TOTAL_SISWA).
+   ─────────────────────────────────────────────────────────── */
+const siswaXPPLGC = [
+  'Ahyar', 'Aisyah', 'Alfino', 'Amelia', 'Arda',
+  'Asroh', 'Cantika', 'Dea', 'Early', 'Evita',
+  'Farhan', 'Faris', 'Fauzan', 'Fitria', 'Kiran',
+  'Kustian', 'Livia', 'Meli', 'Mila', 'Nabila',
+  'Nayla', 'Rafi', 'Regita', 'Renita', 'Rezza',
+  'Rido', 'Risha', 'Sri', 'Vina', 'Windi',
+  'Wulan', 'Yunisa', 'Zaskya', 'Zein', 'Keyna',
+];
+const TOTAL_SISWA = siswaXPPLGC.length; // 35
+
+/* ─── ICON SET PER GROUP ──────────────────────────────────────
+   Ikon kartun bertema laut untuk masing-masing kartu kelompok.
+   ─────────────────────────────────────────────────────────── */
+const GROUP_ICONS = ['⛵','🚢','🛥️','🪸','🐡','🦑','🐙','🦀','🐠','🦈'];
+
+/* ─── FISHER-YATES SHUFFLE ────────────────────────────────────
+   Algoritma pengacakan yang adil dan merata (unbiased).
+   Berbeda dari Math.random() sort biasa yang bisa bias.
+
+   Cara kerja:
+   1. Mulai dari elemen terakhir array (index = n-1)
+   2. Pilih indeks acak antara 0 s/d index saat ini
+   3. Tukar (swap) elemen saat ini dengan elemen di indeks acak tadi
+   4. Mundur satu langkah (index--), ulangi sampai index = 0
+   ─────────────────────────────────────────────────────────── */
+function fisherYatesShuffle(arr) {
+  // Buat salinan agar array asli tidak berubah (immutable approach)
+  const shuffled = [...arr];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    // Pilih indeks acak dari 0 hingga i (inklusif)
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+
+    // Swap: tukar posisi elemen i dengan elemen randomIndex
+    [shuffled[i], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[i]];
+  }
+
+  return shuffled;
+}
+
+/* ─── BAGI ARRAY KE KELOMPOK ──────────────────────────────────
+   Membagi array hasil shuffle secara adil ke sejumlah kelompok.
+
+   Contoh: 35 siswa, 6 kelompok
+   - Pembagian dasar  : Math.floor(35/6) = 5 siswa per kelompok
+   - Sisa (remainder) : 35 % 6 = 5 (ada 5 sisa)
+   - Kelompok 1-5 mendapat 6 siswa (5+1), kelompok ke-6 mendapat 5 siswa
+   ─────────────────────────────────────────────────────────── */
+function splitIntoGroups(arr, numGroups) {
+  const groups = [];
+
+  // Ukuran dasar tiap kelompok (dibulatkan ke bawah)
+  const baseSize  = Math.floor(arr.length / numGroups);
+  // Sisa siswa yang harus didistribusikan
+  const remainder = arr.length % numGroups;
+
+  let cursor = 0; // Penanda posisi dalam array
+
+  for (let g = 0; g < numGroups; g++) {
+    // Kelompok pertama sebanyak 'remainder' mendapat 1 siswa ekstra
+    const extra     = g < remainder ? 1 : 0;
+    const groupSize = baseSize + extra;
+
+    // Ambil irisan array dari posisi cursor sebanyak groupSize
+    groups.push(arr.slice(cursor, cursor + groupSize));
+
+    // Geser cursor ke posisi berikutnya
+    cursor += groupSize;
+  }
+
+  return groups;
+}
+
+/* ─── RENDER KARTU KELOMPOK KE DOM ────────────────────────── */
+function renderGroupCards(groups) {
+  const container = document.getElementById('groupResults');
+  container.innerHTML = ''; // Bersihkan hasil sebelumnya
+
+  groups.forEach((members, groupIndex) => {
+    // Buat card element
+    const card = document.createElement('div');
+    card.className = 'group-card';
+    card.setAttribute('data-group', groupIndex); // untuk GSAP target
+
+    // Ikon kapal/laut bergilir
+    const icon  = GROUP_ICONS[groupIndex % GROUP_ICONS.length];
+
+    // Buat isi card
+    card.innerHTML = `
+      <div class="group-card-header">
+        <span class="group-card-icon">${icon}</span>
+        <span class="group-card-title">Kapal ${groupIndex + 1}</span>
+        <span class="group-card-count">${members.length} awak</span>
+      </div>
+      <div class="group-card-divider"></div>
+      <ul class="group-member-list">
+        ${members.map((name, i) => `
+          <li class="group-member ${i === 0 ? 'captain' : ''}">
+            ${name}
+          </li>
+        `).join('')}
+      </ul>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+/* ─── ANIMASI GSAP ────────────────────────────────────────────
+   1. Whirlpool berputar cepat (spin 1080°) + sedikit membesar
+   2. Setelah selesai: kartu kelompok muncul satu per satu (stagger)
+   ─────────────────────────────────────────────────────────── */
+function animateRandomizer(groups) {
+  const svgEl = document.getElementById('whirlpoolSVG');
+  const btn   = document.getElementById('randBtn');
+
+  // Nonaktifkan tombol selama animasi berlangsung
+  btn.disabled = true;
+
+  // Hentikan animasi idle (agar tidak bentrok dengan animasi GSAP)
+  svgEl.style.animation = 'none';
+
+  // --- Fase 1: Pusaran berputar kencang & membesar ---
+  gsap.to(svgEl, {
+    rotation : 1080,          // 3 putaran penuh searah jarum jam
+    scale    : 1.25,
+    duration : 1.8,
+    ease     : 'power3.in',   // Makin cepat di akhir (seperti tersedot)
+    onComplete() {
+
+      // Kembalikan skala, lalu muncilkan kartu
+      gsap.to(svgEl, {
+        scale    : 1,
+        duration : 0.4,
+        ease     : 'elastic.out(1, 0.5)',
+        onComplete() {
+          // Kembalikan rotasi ke 0 secara instan (modular)
+          gsap.set(svgEl, { rotation: 0 });
+          // Nyalakan kembali animasi idle CSS
+          svgEl.style.animation = '';
+        }
+      });
+
+      // Render kartu ke DOM terlebih dahulu agar ada yang dianimasi
+      renderGroupCards(groups);
+
+      // --- Fase 2: Kartu muncul satu per satu (stagger) ---
+      gsap.from('.group-card', {
+        y       : 60,
+        opacity : 0,
+        scale   : 0.85,
+        duration: 0.55,
+        ease    : 'back.out(1.7)',   // Efek sedikit bouncy/elastic
+        stagger : 0.09,              // Jeda 90ms antar kartu
+        onComplete() {
+          // Aktifkan kembali tombol setelah semua animasi selesai
+          btn.disabled = false;
+        }
+      });
+    }
+  });
+}
+
+/* ─── MAIN FUNCTION: runRandomizer() ─────────────────────────
+   Dipanggil saat tombol "Aduk Pusaran Air!" diklik.
+   ─────────────────────────────────────────────────────────── */
+function runRandomizer() {
+  const input     = document.getElementById('groupCount');
+  const numGroups = parseInt(input.value, 10);
+
+  /* ── Validasi Input ── */
+  if (isNaN(numGroups) || input.value.trim() === '') {
+    showRandAlert('🌊 Eh, isi dulu dong jumlah kapalnya!');
+    return;
+  }
+  if (numGroups < 2) {
+    showRandAlert('⛵ Minimal 2 kapal ya, masa sendirian di laut?');
+    return;
+  }
+  if (numGroups > 10) {
+    showRandAlert('🦑 Kebanyakan kapalnya! Maksimal 10 kapal aja.');
+    return;
+  }
+  if (numGroups > TOTAL_SISWA) {
+    showRandAlert(`🐙 Jumlah kapal (${numGroups}) melebihi jumlah awak (${TOTAL_SISWA})!`);
+    return;
+  }
+
+  /* ── Proses Pengacakan ── */
+  // 1. Acak array siswa dengan Fisher-Yates
+  const shuffled = fisherYatesShuffle(siswaXPPLGC);
+  // 2. Bagi ke dalam kelompok
+  const groups   = splitIntoGroups(shuffled, numGroups);
+  // 3. Jalankan animasi GSAP, lalu render hasil
+  animateRandomizer(groups);
+}
+
+/* ─── HELPER: Alert lucu bertema laut ───────────────────────── */
+function showRandAlert(msg) {
+  // Cari atau buat elemen alert kustom
+  let alertEl = document.getElementById('randAlert');
+
+  if (!alertEl) {
+    alertEl = document.createElement('div');
+    alertEl.id = 'randAlert';
+    alertEl.style.cssText = `
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: linear-gradient(135deg, #001f3f, #003060);
+      color: #fff;
+      font-family: 'Baloo 2', cursive;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 14px 24px;
+      border-radius: 50px;
+      border: 1.5px solid rgba(64,224,208,0.5);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      z-index: 9999;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+    `;
+    document.body.appendChild(alertEl);
+  }
+
+  alertEl.textContent = msg;
+
+  // Animasi masuk & keluar
+  gsap.killTweensOf(alertEl);
+  gsap.fromTo(alertEl,
+    { opacity: 0, y: -30 },
+    {
+      opacity  : 1,
+      y        : 0,
+      duration : 0.4,
+      ease     : 'power2.out',
+      onComplete() {
+        gsap.to(alertEl, {
+          opacity : 0,
+          y       : -20,
+          delay   : 2.5,
+          duration: 0.4,
+          ease    : 'power2.in',
+        });
+      }
+    }
+  );
+}
+
+/* ─── Allow pressing Enter in the input ─────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('groupCount');
+  if (input) {
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') runRandomizer();
+    });
+  }
+});

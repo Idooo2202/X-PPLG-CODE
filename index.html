@@ -127,6 +127,89 @@
     </div>
   </section>
 
+
+  <!-- ============================================================
+     WHIRLPOOL RANDOMIZER — HTML SNIPPET
+     Letakkan section ini SETELAH section #about dan SEBELUM section #gallery
+     ============================================================ -->
+
+<section id="randomizer">
+  <div class="sec-inner">
+
+    <!-- Header -->
+    <div class="sec-badge" style="background:rgba(255,255,255,0.15)">🌪️ Pusaran Air Pengacak</div>
+    <h2 class="sec-title" style="color:#fff">Sistem Acak <span style="color:var(--turq)">Kelompok</span></h2>
+    <p class="rand-desc">Masukkan jumlah kelompok, lalu buat pusaran air nama-nama akan tersedot dan dibagi secara acak dan adil!</p>
+
+    <!-- Whirlpool visual + form -->
+    <div class="rand-center">
+
+      <!-- SVG Whirlpool -->
+      <div class="whirlpool-wrap">
+        <svg id="whirlpoolSVG" class="whirlpool-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+          <!-- Outer rings -->
+          <circle cx="110" cy="110" r="100" fill="none" stroke="rgba(64,224,208,0.18)" stroke-width="2"/>
+          <circle cx="110" cy="110" r="80"  fill="none" stroke="rgba(64,224,208,0.25)" stroke-width="2"/>
+          <circle cx="110" cy="110" r="60"  fill="none" stroke="rgba(64,224,208,0.35)" stroke-width="2"/>
+          <circle cx="110" cy="110" r="40"  fill="none" stroke="rgba(64,224,208,0.5)"  stroke-width="3"/>
+          <circle cx="110" cy="110" r="20"  fill="none" stroke="rgba(64,224,208,0.7)"  stroke-width="3"/>
+          <!-- Spiral arms (path arcs that suggest rotation) -->
+          <g id="spiralArms" stroke="var(--turq)" stroke-linecap="round" fill="none" opacity="0.7">
+            <path d="M110,10  Q180,40  180,110" stroke-width="3"/>
+            <path d="M210,110 Q180,180 110,180" stroke-width="2.5"/>
+            <path d="M110,210 Q40,180  40,110"  stroke-width="2"/>
+            <path d="M10,110  Q40,40   110,40"  stroke-width="1.5"/>
+          </g>
+          <!-- Inner dot -->
+          <circle cx="110" cy="110" r="10" fill="var(--turq)" opacity="0.8"/>
+          <circle cx="110" cy="110" r="5"  fill="#fff"/>
+          <!-- Floating mini bubbles around whirlpool -->
+          <circle cx="55"  cy="65"  r="5"  fill="rgba(255,255,255,0.4)"/>
+          <circle cx="170" cy="80"  r="4"  fill="rgba(255,255,255,0.3)"/>
+          <circle cx="160" cy="160" r="6"  fill="rgba(255,255,255,0.3)"/>
+          <circle cx="55"  cy="155" r="4"  fill="rgba(255,255,255,0.35)"/>
+        </svg>
+        <!-- Decorative waves around whirlpool -->
+        <div class="wp-ring wp-ring-1"></div>
+        <div class="wp-ring wp-ring-2"></div>
+        <div class="wp-ring wp-ring-3"></div>
+      </div>
+
+      <!-- Input form -->
+      <div class="rand-form">
+        <label class="rand-label" for="groupCount">
+          Mau dibagi jadi berapa kelompok?
+        </label>
+        <div class="rand-input-row">
+          <input
+            type="number"
+            id="groupCount"
+            class="rand-input"
+            min="2"
+            max="10"
+            placeholder="2 – 10"
+            value="5"
+          />
+          <button class="rand-btn" id="randBtn" onclick="runRandomizer()">
+            🌪️ Buat Pusaran Air
+          </button>
+        </div>
+        <p class="rand-note">Min 2 kelompok · Max 10 kelompok · Total 35 siswa</p>
+      </div>
+    </div>
+
+    <!-- Results grid (populated by JS) -->
+    <div id="groupResults" class="group-results"></div>
+
+  </div>
+
+  <!-- Decorative bottom wave -->
+  <div class="rand-wave">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    </svg>
+  </div>
+</section>
+
   <!-- ======================================================
      GALLERY
 ====================================================== -->
@@ -177,7 +260,6 @@
       </div>
     </div>
   </section>
-
   <!-- ======================================================
      GALLERY FULL PAGE
 ====================================================== -->
