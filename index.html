@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X PPLG C</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- DIVE LAYERS -->
+  <div id="diveVignette"></div>
+  <div id="diveBlue"></div>
+  <div id="diveBubbles"></div>
+
+  <!-- ======================================================
+     NAVBAR
+====================================================== -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-brand"><span class="anchor">⚓</span> X <span>PPLG</span> C</a>
+    <div class="nav-ham" id="ham"><span></span><span></span><span></span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero">🏠 Home</a></li>
+      <li><a href="#about">🐠 About</a></li>
+      <li><a href="#gallery">🖼️ Gallery</a></li>
+      <li><a href="#contact">📬 Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ======================================================
+     HERO
+====================================================== -->
+  <section id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-sun"></div>
+
+    <!-- Officers scattered behind hero text (desktop: absolute, mobile: grid below) -->
+    <div class="officers-wrap" id="officersWrap"></div>
+
+    <div class="hero-center" id="heroCenter">
+      <div class="hero-tag">🌊 SMKN 1 PADAHERANG 🌊</div>
+      <h1 class="hero-title">X <span>PPLG</span> C</h1>
+      <p class="hero-sub">Pengembangan Perangkat Lunak dan Gim</p>
+      <a href="#about" class="hero-cta">🏄 Explore Shore</a>
+    </div>
+    <!-- Hero text — z-index:10, on top of polaroids -->
+
+    <!-- Shore wave -->
+    <div class="hero-shore">
+      <svg viewBox="0 0 1440 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,45 C200,90 400,10 600,52 C800,90 1000,15 1200,45 C1320,62 1390,28 1440,45 L1440,90 L0,90Z"
+          fill="rgba(0,119,190,0.6)" />
+        <path d="M0,62 C280,30 520,82 760,55 C960,32 1200,75 1440,60 L1440,90 L0,90Z" fill="rgba(0,119,190,0.6)" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- ======================================================
+     ABOUT
+====================================================== -->
+  <section id="about">
+    <div class="sec-inner">
+      <div class="sec-badge">🐠 Developer's Shore</div>
+      <h2 class="sec-title">About <span>Our Class</span></h2>
+      <p class="sec-desc">Kami adalah kelas X PPLG C — sekelompok developer muda yang siap membuat gebrakan di dunia
+        teknologi dan gim. Dari pantai kode, kami berlayar menuju masa depan digital! 🌊</p>
+
+      <div class="id-grid">
+        <div class="id-card rv">
+          <div class="id-icon">🏫</div>
+          <div class="id-lbl">Kelas</div>
+          <div class="id-val">X PPLG C</div>
+        </div>
+        <div class="id-card rv">
+          <div class="id-icon">💻</div>
+          <div class="id-lbl">Jurusan</div>
+          <div class="id-val">PPLG</div>
+        </div>
+        <div class="id-card rv">
+          <div class="id-icon">👩‍💻</div>
+          <div class="id-lbl">Jumlah Siswa</div>
+          <div class="id-val">35 Siswa</div>
+        </div>
+        <div class="id-card rv">
+          <div class="id-icon">👩‍🏫</div>
+          <div class="id-lbl">Wali Kelas</div>
+          <div class="id-val">Bp Patah Yasin</div>
+        </div>
+      </div>
+
+      <div class="sch-grid">
+        <!-- Live clock + lesson -->
+        <div class="sch-card rv">
+          <div class="sch-title">⏰ Jadwal Sekarang</div>
+          <div class="live-clock" id="liveClock">--:--:--</div>
+          <div class="live-day" id="liveDay">---</div>
+          <div class="lbox" id="lessonNow">
+            <div class="ll">📚 Sekarang</div>
+            <div class="ln" id="nowName">Memuat…</div>
+            <div class="lt" id="nowTime"></div>
+          </div>
+          <div class="lbox nxt" id="lessonNext">
+            <div class="ll">⏭ Selanjutnya</div>
+            <div class="ln" id="nextName">Memuat…</div>
+            <div class="lt" id="nextTime"></div>
+          </div>
+        </div>
+        <!-- Piket + full schedule -->
+        <div class="sch-card rv">
+          <div class="sch-title">🧹 Piket Hari Ini</div>
+          <div class="piket-badge" id="piketDay">---</div>
+          <ul class="piket-list" id="piketList"></ul>
+          <div style="margin-top:18px">
+            <div class="sch-title">📋 Jadwal Lengkap</div>
+            <div class="full-sch" id="fullSch"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+     GALLERY
+====================================================== -->
+  <section id="gallery">
+    <div class="sec-inner">
+      <div class="sec-badge">🪸 Our Memory's</div>
+      <h2 class="sec-title">Our <span class="sec-title-gallery">Gallery</span></h2>
+      <p class="sec-desc">Buka peti kenangan dari setiap fase. Seret & geser foto seperti ombak yang membawa kenangan ke
+        tepi pantai 🌊</p>
+
+      <div class="phase-grid">
+        <!-- Phase X -->
+        <div class="phase-card rv" onclick="openGallery('X')">
+          <span class="pci">🐣</span>
+          <div class="pcl">Phase</div>
+          <div class="pcn">X</div>
+          <div class="pcc">7 Kenangan</div>
+          <div class="phase-wave">
+            <svg viewBox="0 0 300 36" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+              <path d="M0,18 C60,36 100,5 160,18 C210,30 260,8 300,18 L300,36 L0,36Z" fill="rgba(255,255,255,0.3)" />
+            </svg>
+          </div>
+        </div>
+        <!-- Phase XI -->
+        <div class="phase-card rv" onclick="">
+          <span class="pci">🌱</span>
+          <div class="pcl">Phase</div>
+          <div class="pcn">XI</div>
+          <div class="pcc">COMMING SOON</div>
+          <div class="phase-wave">
+            <svg viewBox="0 0 300 36" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+              <path d="M0,12 C70,32 130,4 190,20 C230,32 265,10 300,18 L300,36 L0,36Z" fill="rgba(255,255,255,0.3)" />
+            </svg>
+          </div>
+        </div>
+        <!-- Phase XII -->
+        <div class="phase-card rv" onclick="">
+          <span class="pci">🎓️</span>
+          <div class="pcl">Phase</div>
+          <div class="pcn">XII</div>
+          <div class="pcc">COMMING SOON</div>
+          <div class="phase-wave">
+            <svg viewBox="0 0 300 36" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+              <path d="M0,22 C80,6 140,34 210,14 C255,4 280,28 300,18 L300,36 L0,36Z" fill="rgba(255,255,255,0.3)" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+     GALLERY FULL PAGE
+====================================================== -->
+  <div id="galleryPage">
+    <!-- Caustics + bubbles injected by JS -->
+    <div class="gp-top">
+      <div>
+        <div class="gp-title">Kelas <span id="gpPhase"></span> — <span style="color:var(--seafoam)">Our Memory's</span>
+        </div>
+        <div class="gp-sub" id="gpSub">🖐 Drag fotonya untuk mwnyusun memory</div>
+      </div>
+      <button class="gp-close" onclick="closeGallery()">✕</button>
+    </div>
+    <div class="gp-hint">🌊 Memory yang akan terus mengambang dipikiran</div>
+    <div class="gp-canvas" id="gpCanvas"></div>
+  </div>
+
+  <!-- ======================================================
+     CONTACT
+====================================================== -->
+  <section id="contact">
+    <div class="sec-inner">
+      <div class="sec-badge" style="background:rgba(255,255,255,0.2)">🍶 Message in a Bottle</div>
+      <h2 class="sec-title">Hi, Im <span style="color:var(--turq)">Ridho!</span> developer of this website :D</h2>
+      <p class="sec-desc" style="color:rgba(255,255,255,0.82);margin:8px auto 0">
+        Ingin kerja sama atau memberi pesan? Tulis & lempar botolnya ke ombak — Saya akan menunggunya di tepi pantai 🏖️
+      </p>
+      <div><button class="bottle-btn" onclick="openContact()">🍾 Kirim Pesan di Botol</button></div>
+    </div>
+  </section>
+
+  <!-- Contact Modal -->
+  <div class="cmodal" id="cmodal">
+    <div class="cmbg" onclick="closeContact()"></div>
+    <div class="cmbox">
+      <form action="https://formspree.io/f/xpqjyzpw" method="POST">
+        <button class="cm-close" onclick="closeContact()">✕</button>
+        <div class="cm-title">🍾 Drop a Message!</div>
+        <div class="cm-sub">Tulis pesanmu, kami siap membalasnya segera~</div>
+        <div class="fg"><label>Nama : </label><input type="text" placeholder="e.g. Budi Santoso…" name="name"></div>
+        <div class="fg"><label>Email : </label><input type="email" placeholder="hello@example.com" name="email"></div>
+        <div class="fg"><label>Pesan : </label><textarea rows="4" placeholder="Tuliskan pesanmu di sini…" name="message"></textarea></div>
+        <button class="form-btn" id="sendBtn" onclick="submitForm()" type="submit">🌊 Lempar surat ke Laut!</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================
+     FOOTER
+====================================================== -->
+  <footer>
+    <div class="fw">
+      <svg viewBox="0 0 1440 65" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,32 C240,65 480,5 720,32 C960,60 1200,10 1440,32 L1440,65 L0,65Z" fill="#001f3f" />
+      </svg>
+    </div>
+    <div style="padding-top:8px">
+      <div class="fl">⚓ X PPLG C</div>
+      <div class="fc">© 2026 Idooo2202 · Coastal Edition · All rights reserved</div>
+      <div class="socials">
+        <a href="#" class="soc" title="Instagram">📸</a>
+        <a href="#" class="soc" title="GitHub">💻</a>
+        <a href="#" class="soc" title="YouTube">🎬</a>
+        <a href="#" class="soc" title="TikTok">🎵</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
