@@ -614,7 +614,7 @@ section {
     font-family: var(--fd);
     font-size: clamp(1.7rem, 4vw, 2.8rem);
     font-weight: 800;
-    color: var(--deep);
+    color: var(--ocean-dk);
     margin-bottom: 8px;
 }
 
